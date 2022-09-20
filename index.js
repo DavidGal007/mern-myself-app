@@ -7,7 +7,6 @@ const router = require('./router/index')
 const upload = require('./router/upload')
 const errorMiddleware = require('./middlewares/error-middleware');
 const cloudinary = require('cloudinary');
-const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(express.json());
@@ -29,13 +28,10 @@ app.use('/api', upload);
 
 app.use(errorMiddleware);
 
-const start = async () => {
+const start = () => {
     try {
-        await mongoose.connect(process.env.DB_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        })
-        app.listen(PORT, () => console.log(`Server started on PORT = ${PORT}`))
+        mongoose.createConnection(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true})
+        app.listen(process.env.PORT || 5000, () => console.log(`Server started on PORT!`))
     } catch (e) {
         console.log('Error in conection !');
     }
