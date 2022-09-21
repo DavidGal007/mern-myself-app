@@ -15,14 +15,6 @@ app.use('/uploads', express.static('uploads'));
 app.use(cookieParser());
 app.use(cors());
 
-mongoose
-  .connect(process.env.DB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(() => console.log('DB ok'))
-  .catch((err) => console.log('DB error', err));
-
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_API_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -32,6 +24,15 @@ app.use('/api', router);
 app.use('/api', upload);
 
 app.use(errorMiddleware);
+mongoose
+  .connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true})
+  .then(() => console.log('DB ok'))
+  .catch((err) => console.log('DB error', err));
 
-
-
+app.listen(process.env.PORT || 8080, (err) => {
+    if (err) {
+      return console.log(err);
+    }
+  
+    console.log('Server OK');
+});
