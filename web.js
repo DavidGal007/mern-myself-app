@@ -15,6 +15,14 @@ app.use('/uploads', express.static('uploads'));
 app.use(cookieParser());
 app.use(cors());
 
+mongoose
+  .connect(process.env.DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => console.log('DB ok'))
+  .catch((err) => console.log('DB error', err));
+
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_API_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -25,13 +33,5 @@ app.use('/api', upload);
 
 app.use(errorMiddleware);
 
-const start = () => {
-    try {
-        mongoose.createConnection(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true})
-        app.listen(process.env.PORT || 5000, () => console.log(`Server started on PORT!`))
-    } catch (e) {
-        console.log('Error in conection !');
-    }
-}
 
-start()
+
