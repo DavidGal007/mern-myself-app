@@ -13,10 +13,7 @@ app.use(express.json());
 
 app.use('/uploads', express.static('uploads'));
 app.use(cookieParser());
-app.use(cors({
-    credentials: true,
-    origin: process.env.CLIENT_URL
-}));
+app.use(cors());
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_API_NAME,
