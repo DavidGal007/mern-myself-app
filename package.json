@@ -4,7 +4,8 @@
   "description": "",
   "main": "web.js",
   "scripts": {
-    "start": "node web.js"
+    "start": "node web.js",
+    "build": "react-scripts build"
   },
   "keywords": [],
   "author": "",
