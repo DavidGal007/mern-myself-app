@@ -5,7 +5,7 @@
   "main": "web.js",
   "scripts": {
     "start": "node web.js",
-    "build": "react-scripts build"
+    "build": "node web.js --production"
   },
   "keywords": [],
   "author": "",
